@@ -58,7 +58,7 @@ matchRouter.post('/', async (req, res) => {
     // Validate and create the match using the parsedMatchData
     res.status(201).json({ message: 'Match created', data: event });
   } catch (error) {
-    return res.status(500).json({ message: 'Error creating match', details: JSON.stringify(error) });
+    return res.status(500).json({ message: 'Error creating match' });
   }
 
 });
