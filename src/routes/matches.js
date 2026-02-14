@@ -13,7 +13,7 @@ matchRouter.get('/', async (req, res) => {
   if (!parsedMatchesList.success) {
     return res.status(400).json({
       message: 'Invalid query parameters',
-      details: JSON.stringify(parsedMatchesList.error),
+      details: parsedMatchesList.error.issues,
     });
   }
 
@@ -35,7 +35,7 @@ matchRouter.post('/', async (req, res) => {
   if (!parsedMatchData.success) {
     return res.status(400).json({
       message: 'Invalid match data',
-      details: JSON.stringify(parsedMatchData.error),
+      details: parsedMatchData.error.issues,
     });
   }
 
