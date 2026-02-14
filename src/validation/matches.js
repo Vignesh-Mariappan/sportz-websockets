@@ -26,16 +26,8 @@ export const createMatchSchema = z
     sport: z.string().min(1),
     homeTeam: z.string().min(1),
     awayTeam: z.string().min(1),
-    startTime: z
-      .string()
-      .refine((s) => isoDateRegex.test(s), {
-        message: 'startTime must be a valid ISO 8601 string (e.g. 2023-01-01T12:00:00Z)',
-      }),
-    endTime: z
-      .string()
-      .refine((s) => isoDateRegex.test(s), {
-        message: 'endTime must be a valid ISO 8601 string (e.g. 2023-01-01T13:00:00Z)',
-      }),
+    startTime: z.iso.datetime(),
+    endTime: z.iso.datetime(),
     homeScore: z.coerce.number().int().min(0).optional(),
     awayScore: z.coerce.number().int().min(0).optional(),
   })

@@ -17,14 +17,15 @@ matchRouter.get('/', async (req, res) => {
     });
   }
 
-  const limit = Math.min(parsedMatchesList.data.limit ?? 50, 100); // Default to 20 if not provided, max 100
+  const limit = Math.min(parsedMatchesList.data.limit ?? 50, 100); // Default to 50 if not provided, max 100
 
   try {
     const matchesList = await db.select().from(matches).orderBy(desc(matches.createdAt)).limit(limit);
     
     res.status(200).json({ message: 'List of matches', data: matchesList });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching matches', details: JSON.stringify(error) });
+    console.error('Error fetching matches', error);
+    return res.status(500).json({ message: 'Error fetching matches' });
   }
 });
 
