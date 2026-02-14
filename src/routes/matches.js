@@ -55,9 +55,17 @@ matchRouter.post('/', async (req, res) => {
         status: getMatchStatus(new Date(startTime), new Date(endTime)),
       })
       .returning();
+
+    // broadcast the new match created to all the WebSocket clients
+    if (res.app.locals.broadcastMatchCreated) {
+        console.log('Broadcasting new match created event to WebSocket clients ', res.app.locals);
+      res.app.locals.broadcastMatchCreated(event);
+    }
+
     // Validate and create the match using the parsedMatchData
     res.status(201).json({ message: 'Match created', data: event });
   } catch (error) {
+    console.log('error ', error)
     return res.status(500).json({ message: 'Error creating match' });
   }
 
